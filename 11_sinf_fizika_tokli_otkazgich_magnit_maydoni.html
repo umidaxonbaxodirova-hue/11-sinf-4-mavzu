@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11-sinf fizika — Tokli o'tkazgichni magnit maydonida ko'chirish</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#172033;--accent:#2563eb;--blue:#2563eb;--red:#dc2626;--green:#16a34a;--yellow:#d97706}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:white;padding:40px 20px;text-align:center}
+header h1{margin:0 0 10px;font-size:clamp(25px,5vw,42px)} header p{margin:0;font-size:18px}
+nav{position:sticky;top:0;background:#0f172a;padding:10px;text-align:center;z-index:5}
+nav a{color:white;text-decoration:none;margin:4px;padding:8px 12px;display:inline-block;border-radius:8px}
+nav a:hover{background:#2563eb}
+.container{max-width:1100px;margin:auto;padding:24px}
+.card{background:var(--card);border-radius:18px;padding:25px;margin:22px 0;box-shadow:0 5px 20px #00000010}
+h2{color:#1e40af;border-left:6px solid var(--accent);padding-left:12px}
+h3{color:#334155}.formula{background:#eef4ff;border:2px solid #bfdbfe;padding:18px;border-radius:12px;text-align:center;font-size:25px;font-weight:bold;margin:15px 0}
+ul{padding-left:25px}.note{background:#fff7ed;border-left:5px solid var(--yellow);padding:15px;border-radius:8px}
+.sim{background:#0f172a;color:white;border-radius:16px;padding:20px;margin-top:20px}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.control{background:#1e293b;padding:12px;border-radius:10px}.control label{display:block;font-size:14px;margin-bottom:6px}
+input[type=number],input[type=range]{width:100%} button{border:0;background:#2563eb;color:white;padding:10px 16px;border-radius:8px;cursor:pointer;font-weight:bold}
+button:hover{background:#1d4ed8}
+.result{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:15px}
+.result div{background:#172554;padding:15px;border-radius:10px;text-align:center}.result b{display:block;font-size:24px}
+.scene{position:relative;height:270px;background:#e2e8f0;border-radius:12px;margin-top:15px;overflow:hidden;color:#111827}
+.magnet{position:absolute;top:55px;width:110px;height:160px;background:#334155;color:white;text-align:center;padding-top:65px;font-weight:bold}
+.n{left:20px;background:#b91c1c}.s{right:20px;background:#1d4ed8}
+.wire{position:absolute;left:145px;right:145px;top:120px;height:18px;background:#64748b;border-radius:8px}
+.arrow{position:absolute;font-weight:bold;font-size:18px}.bfield{top:25px;left:42%;color:#2563eb}.current{top:145px;left:45%;color:#dc2626}.force{top:75px;left:49%;color:#16a34a}
+.moving-wire{position:absolute;left:45%;top:95px;width:18px;height:100px;background:#111827;border-radius:6px;transition:left .2s}
+.prompt{background:#111827;color:#e5e7eb;border-radius:12px;padding:18px;white-space:pre-wrap;font-family:Consolas,monospace;font-size:14px;overflow:auto}
+.step{background:#f8fafc;border:1px solid #e2e8f0;padding:15px;border-radius:10px;margin:10px 0}
+footer{text-align:center;padding:30px;color:#64748b}
+</style>
+</head>
+<body>
+<header>
+<h1>Tokli o'tkazgichni magnit maydonida ko'chirishda bajarilgan ish</h1>
+<p>11-sinf fizika fani uchun nazariy ma'lumot, interaktiv simulyatsiya va animatsiya promptlari</p>
+</header>
+
+<nav>
+<a href="#reja1">1-reja</a><a href="#reja2">2-reja</a><a href="#reja3">3-reja</a><a href="#promptlar">Promptlar</a>
+</nav>
+
+<main class="container">
+
+<section id="reja1" class="card">
+<h2>1-reja. Magnit maydonidagi tokli o'tkazgichga ta'sir etuvchi kuchlar va ularni hisoblash</h2>
+<p>Magnit maydonida tokli o'tkazgichga magnit kuch ta'sir qiladi. Bu kuch <b>Amper kuchi</b> deb ataladi.</p>
+<div class="formula">F<sub>A</sub> = B · I · l · sin(α)</div>
+<ul>
+<li><b>F<sub>A</sub></b> — Amper kuchi, N;</li>
+<li><b>B</b> — magnit induksiya, T;</li>
+<li><b>I</b> — tok kuchi, A;</li>
+<li><b>l</b> — magnit maydonidagi o'tkazgich uzunligi, m;</li>
+<li><b>α</b> — tok yo'nalishi bilan magnit induksiya vektori orasidagi burchak.</li>
+</ul>
+<div class="note"><b>α = 90°</b> bo'lganda kuch maksimal: F<sub>A</sub> = BIl. <b>α = 0°</b> bo'lganda F<sub>A</sub> = 0.</div>
+
+<div class="sim">
+<h3 style="color:white">Interaktiv 1: Amper kuchini hisoblash</h3>
+<div class="controls">
+<div class="control"><label>B (T)</label><input id="b1" type="number" value="0.5" step="0.1"></div>
+<div class="control"><label>I (A)</label><input id="i1" type="number" value="4" step="0.5"></div>
+<div class="control"><label>l (m)</label><input id="l1" type="number" value="0.2" step="0.05"></div>
+<div class="control"><label>α (°)</label><input id="a1" type="range" min="0" max="180" value="90" oninput="document.getElementById('av1').textContent=this.value+'°'"><b id="av1">90°</b></div>
+</div>
+<button onclick="calc1()">Hisoblash</button>
+<div class="result"><div>Amper kuchi<b id="f1">0 N</b></div><div>Holat<b id="state1">—</b></div></div>
+<div class="scene"><div class="magnet n">N</div><div class="magnet s">S</div><div class="wire"></div>
+<div class="arrow bfield">B → → →</div><div class="arrow current">I →</div><div class="arrow force" id="force1">F<sub>A</sub> ↑</div></div>
+</div>
+</section>
+
+<section id="reja2" class="card">
+<h2>2-reja. Magnit maydonida ko'chayotgan o'tkazgichdagi fizik jarayonlar va Amper kuchining vektorial ko'rinishi</h2>
+<p>Tokli o'tkazgich magnit maydonida tashqi kuch yordamida ko'chirilganda, Amper kuchi va mexanik ish o'rtasidagi bog'lanish kuzatiladi.</p>
+<div class="formula">⃗F<sub>A</sub> = I⃗l × ⃗B</div>
+<p>Amper kuchining moduli:</p>
+<div class="formula">F<sub>A</sub> = BIl sin(α)</div>
+<p>O'tkazgichni <b>s</b> masofaga ko'chirishda bajarilgan ish:</p>
+<div class="formula">A = F · s</div>
+<p>Agar tashqi kuch Amper kuchini muvozanatlasa:</p>
+<div class="formula">A = F<sub>A</sub>s</div>
+
+<div class="sim">
+<h3 style="color:white">Interaktiv 2: O'tkazgichning magnit maydonida ko'chishi</h3>
+<div class="controls">
+<div class="control"><label>B (T)</label><input id="b2" type="number" value="0.5" step="0.1"></div>
+<div class="control"><label>I (A)</label><input id="i2" type="number" value="4" step="0.5"></div>
+<div class="control"><label>l (m)</label><input id="l2" type="number" value="0.2" step="0.05"></div>
+<div class="control"><label>Ko'chish s (m)</label><input id="s2" type="number" value="0.5" step="0.1"></div>
+</div>
+<button onclick="moveWire()">▶ Harakatni boshlash</button>
+<div class="result"><div>F<sub>A</sub><b id="f2">0 N</b></div><div>Bajarilgan ish<b id="work2">0 J</b></div><div>Vektor ko'rinishi<b>Il × B</b></div></div>
+<div class="scene"><div class="magnet n">N</div><div class="magnet s">S</div>
+<div class="moving-wire" id="movingWire"></div><div class="arrow bfield">B → → →</div><div class="arrow current">I ↓</div><div class="arrow force">F<sub>A</sub> →</div></div>
+</div>
+</section>
+
+<section id="reja3" class="card">
+<h2>3-reja. Magnit maydonidagi tokli o'tkazgichga ta'sir etuvchi kuchlarni hisoblash: amaliy tajriba</h2>
+<p>Amper kuchini hisoblash uchun berilgan kattaliklar formulaga qo'yiladi.</p>
+<div class="formula">F<sub>A</sub> = BIl sin(α)</div>
+<h3>Namuna</h3>
+<p>B = 0.5 T, I = 4 A, l = 0.2 m, α = 90°.</p>
+<div class="formula">F<sub>A</sub> = 0.5 · 4 · 0.2 · sin90° = 0.4 N</div>
+<p>Agar o'tkazgich s = 0.5 m ga ko'chirilsa:</p>
+<div class="formula">A = F<sub>A</sub>s = 0.4 · 0.5 = 0.2 J</div>
+<div class="note"><b>Javob:</b> Amper kuchi 0.4 N, bajarilgan ish 0.2 J.</div>
+
+<div class="sim">
+<h3 style="color:white">Interaktiv 3: Virtual laboratoriya</h3>
+<div class="controls">
+<div class="control"><label>B (T)</label><input id="b3" type="number" value="0.5" step="0.1"></div>
+<div class="control"><label>I (A)</label><input id="i3" type="number" value="4" step="0.5"></div>
+<div class="control"><label>l (m)</label><input id="l3" type="number" value="0.2" step="0.05"></div>
+<div class="control"><label>α (°)</label><input id="a3" type="number" value="90"></div>
+<div class="control"><label>s (m)</label><input id="s3" type="number" value="0.5" step="0.1"></div>
+</div>
+<button onclick="lab3()">Hisoblash va tajriba</button>
+<div class="result"><div>Amper kuchi<b id="f3">0 N</b></div><div>Bajarilgan ish<b id="w3">0 J</b></div></div>
+<div class="scene"><div class="magnet n">N</div><div class="magnet s">S</div><div class="moving-wire" id="labWire"></div><div class="arrow bfield">B → → →</div><div class="arrow current">I →</div><div class="arrow force">F<sub>A</sub> →</div></div>
+</div>
+</section>
+
+<section id="promptlar" class="card">
+<h2>Simulyatsiya va animatsiyalar uchun tayyor AI promptlar</h2>
+
+<h3>Prompt 1 — Amper kuchi</h3>
+<div class="prompt">11-sinf fizika darsi uchun interaktiv 3D simulyatsiya yarating.
+
+Mavzu: “Magnit maydonidagi tokli o'tkazgichga ta'sir etuvchi Amper kuchi”.
+
+U-simon doimiy magnit, N va S qutblari, ular orasidagi bir jinsli magnit maydon va tokli o'tkazgichni ko'rsating. Magnit induksiya B ko'k strelkalar bilan, tok I qizil strelka bilan, Amper kuchi F_A yashil strelka bilan ko'rsatilsin.
+
+Formula:
+F_A = B · I · l · sin(α)
+
+B, I, l va α qiymatlari slayderlar orqali o'zgartirilsin. Natija real vaqt rejimida hisoblanib, kuch vektorining uzunligi o'zgarsin. α=0° da kuch nol, α=90° da maksimal bo'lsin. Chap qo'l qoidasi ham animatsiya bilan tushuntirilsin. Dizayn ilmiy, zamonaviy va 11-sinf o'quvchilariga tushunarli bo'lsin.</div>
+
+<h3>Prompt 2 — Ko'chayotgan o'tkazgich va vektorlar</h3>
+<div class="prompt">11-sinf fizika uchun interaktiv simulyatsiya yarating.
+
+Mavzu: “Tokli o'tkazgichni magnit maydonida ko'chirishda bajarilgan ish”.
+
+Ikki parallel rels, ular ustida harakatlanuvchi tokli metall o'tkazgich va bir jinsli magnit maydon yarating. B, I·l va F_A vektorlarini uch o'lchamli koordinata tizimida ko'rsating.
+
+Vektorial formula:
+F_A = I·l × B
+
+O'tkazgich tashqi kuch yordamida rels bo'ylab harakatlansin. Bosib o'tilgan s masofa, Amper kuchi va bajarilgan ish real vaqt rejimida ko'rsatilsin.
+
+A = F_A · s
+
+“Boshlash”, “To'xtatish” va “Vektorlar” tugmalari bo'lsin. Animatsiya “tok + magnit maydon → Amper kuchi → ko'chish → mexanik ish” sabab-oqibat zanjirini aniq tushuntirsin.</div>
+
+<h3>Prompt 3 — Virtual laboratoriya va hisoblash</h3>
+<div class="prompt">11-sinf fizika uchun interaktiv virtual laboratoriya yarating.
+
+Mavzu: “Tokli o'tkazgichni magnit maydonida ko'chirishda bajarilgan ish”.
+
+Boshlang'ich qiymatlar:
+B = 0.5 T
+I = 4 A
+l = 0.2 m
+α = 90°
+s = 0.5 m
+
+Avval:
+F_A = B · I · l · sin(α)
+ni hisoblang va F_A = 0.4 N natijani ko'rsating.
+
+Keyin:
+A = F_A · s
+ni hisoblang va A = 0.2 J natijani ko'rsating.
+
+Foydalanuvchi barcha qiymatlarni o'zgartira olsin. Hisoblash jarayonini bosqichma-bosqich animatsiya qiling. A va s orasidagi bog'lanishni grafikda ko'rsating. Oxirida o'quvchiga 3 ta test savoli bering.</div>
+</section>
+
+<section class="card">
+<h2>Darsning umumiy mantiqiy ketma-ketligi</h2>
+<div class="step"><b>1.</b> Magnit maydoni + tokli o'tkazgich → <b>Amper kuchi</b></div>
+<div class="step"><b>2.</b> Amper kuchi → <b>o'tkazgichning ko'chishi</b></div>
+<div class="step"><b>3.</b> Kuch + ko'chish → <b>bajarilgan ish</b></div>
+<div class="formula">B, I, l, α → F<sub>A</sub> → s → A = F<sub>A</sub>s</div>
+</section>
+
+</main>
+<footer>11-sinf fizika | Tokli o'tkazgichni magnit maydonida ko'chirishda bajarilgan ish</footer>
+
+<script>
+function val(id){return parseFloat(document.getElementById(id).value)||0}
+function calc1(){
+ const B=val('b1'),I=val('i1'),l=val('l1'),a=val('a1');
+ const F=B*I*l*Math.sin(a*Math.PI/180);
+ document.getElementById('f1').textContent=F.toFixed(3)+' N';
+ document.getElementById('state1').textContent=a===0||a===180?'F = 0':(a===90?'Maksimal':'O‘zgaruvchi');
+ document.getElementById('force1').style.transform=`rotate(${a-90}deg)`;
+}
+function moveWire(){
+ const B=val('b2'),I=val('i2'),l=val('l2'),s=val('s2');
+ const F=B*I*l, A=F*s;
+ document.getElementById('f2').textContent=F.toFixed(3)+' N';
+ document.getElementById('work2').textContent=A.toFixed(3)+' J';
+ const w=document.getElementById('movingWire');
+ w.style.left='45%';
+ setTimeout(()=>w.style.left='72%',600);
+}
+function lab3(){
+ const B=val('b3'),I=val('i3'),l=val('l3'),a=val('a3'),s=val('s3');
+ const F=B*I*l*Math.sin(a*Math.PI/180), A=F*s;
+ document.getElementById('f3').textContent=F.toFixed(3)+' N';
+ document.getElementById('w3').textContent=A.toFixed(3)+' J';
+ const w=document.getElementById('labWire');
+ w.style.left='45%'; setTimeout(()=>w.style.left='72%',500);
+}
+calc1();
+</script>
+</body>
+</html>
